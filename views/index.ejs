@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookNotes</title>
+    <link rel="stylesheet" href="/styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+</head>
+<body>
+    <section class="flex_container">
+        <div class="flex_item header">
+            <h1>Someone</h1>
+            <h2>Books I've read</h2>
+            <p>Tiny summary but detailed notes for each. Use the ISBN number to find it from your local library or anywhere else. This page will constantly update as I read more, so bookmark it if you want to check back in a few months.</p>
+            <p>Sorted with my top recommendations up top. Sort by title, newest, or best.</p>
+        </div>
+        <div class="flex_item books_container">
+            <% for( let index = 0; index < books.length; index++ ) { %>
+                <ul>
+                    <li>
+                        <form action="/delete" method="post">
+                            <input type="checkbox" onchange="this.form.submit()" name="deleteItemId" value="<%= books[index].id %>">
+                        </form>
+                        <h1 class="books_h1"><%= books[index].title %></h1>
+                        <p><%= books[index].description %></p>
+                        <form class="edit" action="/edit" method="post">
+                            <input type="hidden" name="updatedItemId" value="<%= books[index].id %>">
+                            <input id="input<%=books[index].id%>" type="text" name="updatedItemTitle" value="<%= books[index].title %>" autocomplete="off"
+                              autofocus="true" hidden="true" />
+                            <input id="input<%=books[index].id%>" type="text" name="updatedItemDescription" value="<%= books[index].title %>" autocomplete="off"
+                              autofocus="true" hidden="true" />
+                            <button id="done<%=books[index].id%>" class="edit" type="submit" hidden><img class="icon"
+                                src="/assets/icons/check-solid.svg" alt="tick image"></button>
+                        </form>
+                            <button id="edit<%=books[index].id%>" class="edit" onclick="handler('<%=books[index].id%>')"><img class="icon"
+                              src="/assets/icons/pencil-solid.svg" alt="pencil image"></button>
+                    </li>
+                </ul>
+            <% } %>
+        </div>
+        <form class="item" action="/add" method="post">
+            <input type="text" name="newItemTitle" placeholder="Add a new book" autocomplete="off" autofocus="true" />
+            <input type="text" name="newItemDescription" placeholder="Add a description" autocomplete="off"/>
+            <button class="add" type="submit" name="list">+</button>
+        </form>
+    </section>
+    <script>
+        function handler(id) {
+          document.getElementById("title" + id).setAttribute("hidden", true)
+          document.getElementById("edit" + id).setAttribute("hidden", true)
+          document.getElementById("done" + id).removeAttribute("hidden")
+          document.getElementById("input" + id).removeAttribute("hidden")
+        }
+    </script>
+</body>
+</html>

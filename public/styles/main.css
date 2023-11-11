@@ -1,0 +1,29 @@
+body {
+    max-width: 40em;
+    line-height: 30px;
+    margin: 0 auto;
+    padding: 5px;
+    font-family: 'Open Sans', sans-serif;
+    background-color: rgb(215, 224, 233);
+}
+
+.flex_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.flex_item {
+    justify-content: center;
+    flex-direction: column;
+    display: flex;
+    max-width: 600px;
+}
+
+.header {
+    font-size: 1.2rem;
+}
+
+.books_h1 {
+    margin: 0;
+}
